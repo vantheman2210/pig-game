@@ -28,6 +28,24 @@ const switchPlayer = function() {
 	player0El.classList.toggle('player--active');
 	player1El.classList.toggle('player--active');
 };
+
+//Function for resetting a game
+const newGame = function() {
+	score0El.textContent = 0;
+	score1El.textContent = 0;
+	currentScore0El.textContent = 0;
+	currentScore1El.textContent = 0;
+	diceEl.classList.add('hidden');
+	scores[0] = 0;
+	scores[1] = 0;
+	currentScore = 0;
+	playing = true;
+	activePlayer = 0;
+	player0El.classList.add('player--active');
+	player1El.classList.remove('player--active');
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
+};
 // Rolling dice functionality
 btnRoll.addEventListener('click', () => {
 	if (playing) {
@@ -57,8 +75,8 @@ btnHold.addEventListener('click', () => {
 		// check if player score is >= 100
 		if (scores[activePlayer] >= 10) {
 			// End game
-      playing = false;
-      diceEl.classList.add('hidden');
+			playing = false;
+			diceEl.classList.add('hidden');
 			document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
 			document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
 		} else {
@@ -67,3 +85,5 @@ btnHold.addEventListener('click', () => {
 		}
 	}
 });
+
+btnNew.addEventListener('click', newGame);

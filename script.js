@@ -11,14 +11,30 @@ const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+
+// Init variables
+let scores, currentScore, playing, activePlayer;
+
 // Starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
-const scores = [ 0, 0 ];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+//Initialization function
+const init = function() {
+	scores = [ 0, 0 ];
+	currentScore = 0;
+	playing = true;
+	activePlayer = 0;
+
+	score0El.textContent = 0;
+	score1El.textContent = 0;
+	currentScore0El.textContent = 0;
+	currentScore1El.textContent = 0;
+
+	diceEl.classList.add('hidden');
+	player0El.classList.add('player--active');
+	player1El.classList.remove('player--active');
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
+};
+init();
 
 // Function for switching players (DRY principle)
 const switchPlayer = function() {
@@ -29,23 +45,6 @@ const switchPlayer = function() {
 	player1El.classList.toggle('player--active');
 };
 
-//Function for resetting a game
-const newGame = function() {
-	score0El.textContent = 0;
-	score1El.textContent = 0;
-	currentScore0El.textContent = 0;
-	currentScore1El.textContent = 0;
-	diceEl.classList.add('hidden');
-	scores[0] = 0;
-	scores[1] = 0;
-	currentScore = 0;
-	playing = true;
-	activePlayer = 0;
-	player0El.classList.add('player--active');
-	player1El.classList.remove('player--active');
-	player0El.classList.remove('player--winner');
-	player1El.classList.remove('player--winner');
-};
 // Rolling dice functionality
 btnRoll.addEventListener('click', () => {
 	if (playing) {
@@ -86,4 +85,4 @@ btnHold.addEventListener('click', () => {
 	}
 });
 
-btnNew.addEventListener('click', newGame);
+btnNew.addEventListener('click', init);
